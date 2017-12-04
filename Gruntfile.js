@@ -9,6 +9,7 @@ module.exports = function(grunt) {
                 'node_modules/plyr/dist/plyr.js', 
                 'node_modules/lazysizes/plugins/object-fit/ls.object-fit.min.js', 
                 'node_modules/lazysizes/lazysizes.min.js', 
+                'node_modules/lazysizes/plugins/parent-fit/ls.parent-fit.min.js', 
                 'node_modules/lazysizes/plugins/optimumx/ls.optimumx.min.js', 
                 //'node_modules/lazysizes/plugins/unveilhooks/ls.unveilhooks.min.js', 
                 'node_modules/viewport-units-buggyfill/viewport-units-buggyfill.js',
