@@ -1,0 +1,71 @@
+title: Project
+files: true
+pages: false
+files:
+  fields:
+    caption:
+      label: Caption
+      type: textarea
+      buttons:
+        - link
+        - email
+    contentsize:
+      label: Size
+      type: radio
+      default: fullscreen
+      options:
+        contain: Contain
+        fullscreen: Fullscreen
+      columns: 2
+    videolink:
+      label: Video ID
+      type: text
+      icon: code
+      help: Youtube ID or Vimeo ID
+    vendor:
+      label: Vendor
+      type: radio
+      default: vimeo
+      options:
+        vimeo: Vimeo 
+        youtube: Youtube
+    videostream:
+      label: Video external stream link (.m3u8)
+      type: url
+    videoexternal:
+      label: Video external file link
+      type: url
+    videofile:
+      label: Video File
+      type: select
+      options: videos
+fields:
+  prevnext: prevnext
+  title:
+    label: Title
+    type:  text
+    width: 1/2
+  subtitle:
+    label: Subtitle
+    type: text
+    width: 1/2
+  featured:
+    label: Featured image
+    type: image
+    help: Required to display project
+    width: 1/4
+  date:
+    label: Year
+    type:  date
+    format: YYYY
+    width: 1/4
+  client:
+    label: Client
+    type:  text
+    width: 2/4
+  text:
+    label: Description
+    type: textarea
+  medias: 
+    label: Images
+    type: images

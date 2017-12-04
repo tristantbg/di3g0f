@@ -1,0 +1,18 @@
+header
+	display inline-flex
+	justify-content center
+	padding 0.5em
+	position fixed
+	top 0
+	left 0
+	width 100%
+	z-index 100
+	#site-title
+		display inline-flex
+		justify-content center
+	h1, p
+		display inline-flex
+		margin 0
+		&:not(:first-child):before
+			content '\00a0\2013\00a0'
+			

@@ -1,0 +1,30 @@
+.loader
+	position fixed
+	width 100%
+	height 100%
+	top 0
+	left 0
+	//background $primary url('../../images/loader.gif') center no-repeat
+	background $primary
+	background-size 15px
+	z-index 10000
+	.spinner
+		width 50px
+		height 50px
+		align()
+		.circular
+			animation rotate 2s linear infinite
+			height 100%
+			transform-origin center center
+			width 100%
+			position absolute
+			top 0
+			bottom 0
+			left 0
+			right 0
+			margin auto
+			.path
+				stroke $secondary
+				stroke-dasharray 1, 200
+				stroke-dashoffset 0
+				animation dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite

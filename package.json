@@ -1,0 +1,25 @@
+{
+  "name": "",
+  "description": "",
+  "private": true,
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-stylus": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-php": "*",
+    "jeet": "*",
+    "rupture": "*"
+  },
+  "dependencies": {
+    "flickity": "^2.0.8",
+    "hls.js": "^0.8.7",
+    "lazysizes": "^4.0.1",
+    "normalize.css": "^7.0.0",
+    "plyr": "^2.0.18",
+    "smoothstate": "^0.7.2",
+    "viewport-units-buggyfill": "^0.6.2"
+  }
+}

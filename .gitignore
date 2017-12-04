@@ -1,0 +1,16 @@
+.DS_Store
+Thumbs.db
+/content/*
+/lib
+/assets/fonts/*
+/assets/css/app.min.css
+/assets/css/build/*
+/assets/js/app.concat.js
+/assets/js/plugins.concat.js
+/assets/js/build/*
+/node_modules
+/npm-debug.log
+/site/accounts
+/site/cache
+/assets/avatars
+/thumbs/*
