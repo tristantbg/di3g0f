@@ -51,7 +51,8 @@ $(function() {
     },
     idle: {
       init: function() {
-        if (isMobile) return;
+        var isProject = document.querySelector("[page-type=project]");
+        if (isMobile || !isProject) return;
         var idle;
         $body.mousemove(function(event) {
           if (!isMobile && !infos) {
@@ -261,6 +262,7 @@ $(function() {
             render: function($container, $newContent) {
               // Inject the new content
               $(window).scrollTop(0);
+              $body.attr('page-type', $newContent.find("#page-content").attr('page-type'));
               $container.html($newContent);
             }
           },

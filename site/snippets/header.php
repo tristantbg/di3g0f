@@ -72,7 +72,7 @@
 	<?php endif ?>
 
 </head>
-<body>
+<body page-type="<?= $page->intendedTemplate() ?>">
 
 <div id="outdated">
 	<div class="inner">
