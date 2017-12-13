@@ -7,7 +7,7 @@ var width = $(window).width(),
   lastTarget = false,
   slider,
   $mouseNav,
-  $root = '/';
+  $root = '';
 $(function() {
   var app = {
     init: function() {
