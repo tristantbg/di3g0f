@@ -75,7 +75,7 @@ $(function() {
       players = plyr.setup('.js-player', {
         loop: false,
         controls: ['controls', 'progress'],
-        // iconUrl: $root + "/assets/css/plyr/plyr.svg"
+      // iconUrl: $root + "/assets/css/plyr/plyr.svg"
       });
       for (var i = players.length - 1; i >= 0; i--) {
         players[i].on('play', function(event) {
@@ -118,6 +118,8 @@ $(function() {
           wrapAround: true,
           prevNextButtons: true,
           pageDots: false,
+          autoPlay: 3000,
+          pauseAutoPlayOnHover: false,
           draggable: isMobile
         });
         slider.slidesCount = slider.slides.length;
@@ -155,6 +157,7 @@ $(function() {
           // Update Hash
           count = slider.selectedElement.getAttribute('data-id');
           window.location.hash = count;
+          slider.playPlayer();
         });
         slider.on('staticClick', function(event, pointer, cellElement, cellIndex) {
           if (!cellElement || cellElement.getAttribute('data-media') == "video" && !slider.element.classList.contains('nav-hover')) {

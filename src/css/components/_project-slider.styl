@@ -10,7 +10,9 @@
 			display inline-flex
 			justify-content center
 			left 0 !important
-			visibility hidden
+			opacity 0
+			transition opacity 600ms ease
+			// visibility hidden
 			.content
 				height 100%
 				width 100%
@@ -45,7 +47,8 @@
 					height 100%
 					object-fit cover
 		.slide.is-selected
-			visibility visible
+			// visibility visible
+			opacity 1
 			z-index 1
 		.flickity-prev-next-button
 			cursor none !important

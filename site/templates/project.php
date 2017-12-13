@@ -55,12 +55,16 @@
 			<div class="content image <?= $image->contentSize() ?>">
 				<img class="media lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 				data-src="<?= $image->width(1500)->url() ?>" 
-				data-srcset="<?= thumb($image, array('width' => 300))->url() ?> 300w, <?= thumb($image, array('width' => 500))->url() ?> 500w, <?= thumb($image, array('width' => 800))->url() ?> 800w, <?= thumb($image, array('width' => 1000))->url() ?> 1000w, <?= thumb($image, array('width' => 1500))->url() ?> 1500w, <?= thumb($image, array('width' => 2000))->url() ?> 2000w, <?= thumb($image, array('width' => 2500))->url() ?> 2500w, <?= thumb($image, array('width' => 3000))->url() ?> 3000w" 
+				<?php 
+				$srcset = '';
+				for ($i = 1000; $i <= 3000; $i += 500) $srcset .= $image->width($i)->url() . ' ' . $i . 'w,';
+				?>
+				data-srcset="<?= $srcset ?>" 
 				data-sizes="auto" 
 				data-optimumx="1.5" 
 				alt="<?= $title.' - © '.$site->title()->html() ?>" height="100%" width="auto" />
 				<noscript>
-					<img src="<?= thumb($image, array('height' => 1500))->url() ?>" alt="<?= $title.' - © '.$site->title()->html() ?>" height="100%" width="auto" />
+					<img src="<?= thumb($image, array('width' => 1500))->url() ?>" alt="<?= $title.' - © '.$site->title()->html() ?>" width="100%" height="auto" />
 				</noscript>
 			</div>
 		<?php endif ?>
