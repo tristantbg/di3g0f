@@ -47,29 +47,35 @@ $(function() {
     },
     interact: function() {
       app.loadSlider();
-      var idle;
-      $body.mousemove(function(event) {
-        if (!isMobile && !infos) {
-          app.showInfos();
-          window.clearTimeout(idle);
-          idle = setTimeout(function() {
-            app.hideInfos();
-          }, 2000);
-        }
-      });
+      app.idle.init();
     },
-    hideInfos: function() {
-      $body.addClass('idle');
-      infos = false;
-    },
-    showInfos: function() {
-      $body.removeClass('idle');
-      infos = true;
-    },
-    resetIdle: function() {
-      app.showInfos();
-      window.clearTimeout(idle);
-      infos = false;
+    idle: {
+      init: function() {
+        if (isMobile) return;
+        var idle;
+        $body.mousemove(function(event) {
+          if (!isMobile && !infos) {
+            app.idle.showInfos();
+            window.clearTimeout(idle);
+            idle = setTimeout(function() {
+              app.idle.hideInfos();
+            }, 2000);
+          }
+        });
+      },
+      hideInfos: function() {
+        $body.addClass('idle');
+        infos = false;
+      },
+      showInfos: function() {
+        $body.removeClass('idle');
+        infos = true;
+      },
+      resetIdle: function() {
+        app.showInfos();
+        window.clearTimeout(idle);
+        infos = false;
+      }
     },
     plyr: function(loop) {
       players = plyr.setup('.js-player', {

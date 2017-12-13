@@ -9,9 +9,10 @@ fields:
   description:
     label: Description
     type:  textarea
-  header:
-    label: Header
-    type: textarea
+  aboutPage:
+    label: About Page
+    type: select
+    options: pages
   keywords:
     label: Keywords
     type:  tags

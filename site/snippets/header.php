@@ -87,8 +87,12 @@
 
 	<header>
 		<div id="site-title">
-			<h1><?= $site->title()->html() ?></h1>
-			<?= $site->header()->kt() ?>
+			<?php if ($about = $site->aboutPage()->toPage()): ?>
+				<h1><?= $site->title()->html() ?><a href="<?= e($page->isHomepage(), $about->url(), $site->url()) ?>" data-target="page"></a></h1>
+				<?= $about->text()->kt() ?>
+			<?php else: ?>
+				<h1><?= $site->title()->html() ?></h1>
+			<?php endif ?>
 		</div>
 	</header>
 
