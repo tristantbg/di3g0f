@@ -29,7 +29,7 @@ $(function() {
           if (slider && e.keyCode === 37) slider.previous();
         });
         $(window).load(function() {
-          $(".loader").hide();
+          $(".loader").fadeOut(300);
         });
       });
     },
