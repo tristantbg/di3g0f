@@ -1,3 +1,10 @@
+import Flickity from 'flickity-hash'
+import lazysizes from 'lazysizes'
+import optimumx from 'lazysizes'
+require('../../node_modules/lazysizes/plugins/object-fit/ls.object-fit.js')
+require('../../node_modules/lazysizes/plugins/unveilhooks/ls.unveilhooks.js')
+require('viewport-units-buggyfill').init();
+
 /* globals $:false */
 var width = $(window).width(),
   height = $(window).height(),
@@ -16,19 +23,18 @@ $(function() {
         app.sizeSet();
       });
       $(document).ready(function($) {
-        $body = $('body');
-        $container = $('#container');
+        app.body = $('body');
+        app.container = $('#container');
         app.sizeSet();
         app.interact();
-        app.smoothState('#main', $container);
-        window.viewportUnitsBuggyfill.init();
+        // app.smoothState('#main', app.container);
         $(document).keyup(function(e) {
           //esc
           if (e.keyCode === 27) app.goBack();
           if (slider && e.keyCode === 39) slider.next();
           if (slider && e.keyCode === 37) slider.previous();
         });
-        $(window).load(function() {
+        $(window).on('load', function() {
           $(".loader").fadeOut(300);
         });
       });
@@ -54,7 +60,7 @@ $(function() {
         var isProject = document.querySelector("[page-type=project]");
         if (isMobile || !isProject) return;
         var idle;
-        $body.mousemove(function(event) {
+        app.body.mousemove(function(event) {
           if (!isMobile && !infos) {
             app.idle.showInfos();
             window.clearTimeout(idle);
@@ -65,11 +71,11 @@ $(function() {
         });
       },
       hideInfos: function() {
-        $body.addClass('idle');
+        app.body.addClass('idle');
         infos = false;
       },
       showInfos: function() {
-        $body.removeClass('idle');
+        app.body.removeClass('idle');
         infos = true;
       },
       resetIdle: function() {
@@ -119,20 +125,20 @@ $(function() {
         slider = new Flickity(slider, {
           cellSelector: '.slide',
           imagesLoaded: true,
-          lazyLoad: 2,
+          lazyLoad: false,
           setGallerySize: false,
           accessibility: false,
           wrapAround: true,
           prevNextButtons: true,
           pageDots: false,
-          autoPlay: 3000,
+          autoPlay: false,
           pauseAutoPlayOnHover: false,
           draggable: isMobile
         });
         slider.slidesCount = slider.slides.length;
         if (slider.slidesCount < 1) return; // Stop if no slides
         app.mouseNav();
-        app.plyr();
+        // app.plyr();
         var vids = document.querySelectorAll('.slider [data-media="video"] video');
         if (vids.length > 0) {
           var hls = [];
@@ -148,12 +154,6 @@ $(function() {
             }
           }
         }
-        slider.element.setAttribute("data-media", slider.selectedElement.getAttribute("data-media"));
-        // Slide Hash in URL
-        var hash = window.location.hash.substr(1);
-        slider.selectCell('[data-id="' + hash + '"]', true, true);
-        var count = slider.selectedElement.getAttribute('data-id');
-        window.location.hash = count;
         slider.on('select', function() {
           // $('#slide-number').html((slider.selectedIndex + 1) + '/' + slider.slidesCount);
           $('#slide-description').html(slider.selectedElement.getAttribute("data-caption"));
@@ -170,7 +170,11 @@ $(function() {
           if (!cellElement || cellElement.getAttribute('data-media') == "video" && !slider.element.classList.contains('nav-hover')) {
             return;
           } else {
-            slider.next();
+            if (slider.element.classList.contains('left')) {
+              slider.previous();
+            } else {
+              slider.next();
+            }
           }
         });
         if (vids.length > 0) {
@@ -193,6 +197,12 @@ $(function() {
           $mouseNav.remove();
           slider.element.style.cursor = 'auto';
         }
+        slider.element.setAttribute("data-media", slider.selectedElement.getAttribute("data-media"));
+        // Slide Hash in URL
+        var hash = window.location.hash.substr(1);
+        slider.selectCell('[data-id="' + hash + '"]', true, true);
+        var count = slider.selectedElement.getAttribute('data-id');
+        window.location.hash = count;
       }
     },
     mouseNav: function() {
@@ -227,56 +237,56 @@ $(function() {
     },
     goIndex: function() {},
     goBack: function() {
-      if (window.history && history.length > 0 && !$body.hasClass('projects')) {
+      if (window.history && history.length > 0 && !app.body.hasClass('projects')) {
         window.history.go(-1);
       } else {
         $('#site-title a').click();
       }
     },
-    smoothState: function(container, $target) {
-      var options = {
-          debug: true,
-          scroll: false,
-          anchors: '[data-target]',
-          loadingClass: 'is-loading',
-          prefetch: true,
-          cacheLength: 4,
-          onAction: function($currentTarget, $container) {
-            lastTarget = target;
-            target = $currentTarget.data('target');
-            if (target === "back") app.goBack();
-          // console.log(lastTarget);
-          },
-          onBefore: function(request, $container) {
-            popstate = request.url.replace(/\/$/, '').replace(window.location.origin + $root, '');
-          // console.log(popstate);
-          },
-          onStart: {
-            duration: 0, // Duration of our animation
-            render: function($container) {
-              $body.addClass('is-loading');
-            }
-          },
-          onReady: {
-            duration: 0,
-            render: function($container, $newContent) {
-              // Inject the new content
-              $(window).scrollTop(0);
-              $body.attr('page-type', $newContent.find("#page-content").attr('page-type'));
-              $container.html($newContent);
-            }
-          },
-          onAfter: function($container, $newContent) {
-            app.interact();
-            setTimeout(function() {
-              $body.removeClass('is-loading');
-            // Clear cache for random content
-            // smoothState.clear();
-            }, 200);
-          }
-        },
-        smoothState = $(container).smoothState(options).data('smoothState');
-    }
+    // smoothState: function(container, $target) {
+    //   var options = {
+    //       debug: true,
+    //       scroll: false,
+    //       anchors: '[data-target]',
+    //       loadingClass: 'is-loading',
+    //       prefetch: true,
+    //       cacheLength: 4,
+    //       onAction: function($currentTarget, app.container) {
+    //         lastTarget = target;
+    //         target = $currentTarget.data('target');
+    //         if (target === "back") app.goBack();
+    //       // console.log(lastTarget);
+    //       },
+    //       onBefore: function(request, app.container) {
+    //         popstate = request.url.replace(/\/$/, '').replace(window.location.origin + $root, '');
+    //       // console.log(popstate);
+    //       },
+    //       onStart: {
+    //         duration: 0, // Duration of our animation
+    //         render: function(app.container) {
+    //           app.body.addClass('is-loading');
+    //         }
+    //       },
+    //       onReady: {
+    //         duration: 0,
+    //         render: function(app.container, $newContent) {
+    //           // Inject the new content
+    //           $(window).scrollTop(0);
+    //           app.body.attr('page-type', $newContent.find("#page-content").attr('page-type'));
+    //           app.container.html($newContent);
+    //         }
+    //       },
+    //       onAfter: function(app.container, $newContent) {
+    //         app.interact();
+    //         setTimeout(function() {
+    //           app.body.removeClass('is-loading');
+    //         // Clear cache for random content
+    //         // smoothState.clear();
+    //         }, 200);
+    //       }
+    //     },
+    //     smoothState = $(container).smoothState(options).data('smoothState');
+    // }
   };
   app.init();
 });
