@@ -88,10 +88,10 @@
 	<header>
 		<div id="site-title">
 			<?php if ($about = $site->aboutPage()->toPage()): ?>
-				<h1><?= $site->title()->html() ?><a href="<?= e($page->isHomepage(), $about->url(), $site->url()) ?>" data-target="page"></a></h1>
+				<h1 class="hidden"><a href="<?= e($page->isHomepage(), $about->url(), $site->url()) ?>" data-target="page"><?= $site->title()->html() ?></a></h1>
 				<?= $about->text()->kt() ?>
 			<?php else: ?>
-				<h1><?= $site->title()->html() ?></h1>
+				<h1 class="hidden"><?= $site->title()->html() ?></h1>
 			<?php endif ?>
 		</div>
 	</header>

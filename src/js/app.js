@@ -115,6 +115,7 @@ $(function() {
         slider = null;
       }
       slider = document.querySelector('.slider');
+      slides = document.querySelectorAll('.slider .slide');
       if (slider) {
         slider = new Flickity(slider, {
           cellSelector: '.slide',
@@ -123,9 +124,9 @@ $(function() {
           setGallerySize: false,
           accessibility: false,
           wrapAround: true,
-          prevNextButtons: true,
+          prevNextButtons: slides.length,
           pageDots: false,
-          autoPlay: 3000,
+          // autoPlay: 3000,
           pauseAutoPlayOnHover: false,
           draggable: isMobile
         });
@@ -158,7 +159,7 @@ $(function() {
           // Update Hash
           count = slider.selectedElement.getAttribute('data-id');
           window.location.hash = count;
-          slider.playPlayer();
+          // slider.playPlayer();
         });
         slider.on('staticClick', function(event, pointer, cellElement, cellIndex) {
           if (!cellElement || cellElement.getAttribute('data-media') == "video" && !slider.element.classList.contains('nav-hover')) {
@@ -169,9 +170,9 @@ $(function() {
         });
         if (vids.length > 0) {
           slider.on('select', function() {
-            $.each(vids, function() {
-              this.pause();
-            });
+            // $.each(vids, function() {
+            //   this.pause();
+            // });
             slider.element.classList.remove('play', 'pause');
           });
           if (slider.selectedElement.getAttribute("data-media") == "video") {
@@ -180,6 +181,7 @@ $(function() {
                 vids[0].play();
               });
             } else {
+              vids[0].muted = true
               vids[0].play();
             }
           }

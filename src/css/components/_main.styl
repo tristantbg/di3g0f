@@ -1,4 +1,4 @@
-webfont('AvenirLTStdBook', 'AvenirLTStdBook')
+webfont('BSTAnotherMonoRegular', 'BSTAnotherMonoRegular')
 
 body,html
 	width 100%
@@ -6,10 +6,13 @@ body,html
 	background $primary
 
 html
-	font-size 10px
+	+above($md + 1)
+		font-size 0.7vw
+	+below($md)
+		font-size 11px
 
 body
-	font-family "AvenirLTStdBook", Helvetica Neue, Arial, sans-serif
+	font-family "BSTAnotherMonoRegular", Helvetica Neue, Arial, sans-serif
 	font-size 1.4rem
 	letter-spacing 0.06em
 	text-rendering optimizeLegibility
@@ -17,14 +20,14 @@ body
 
 p
 	margin-bottom 1em
-	line-height 1
+	line-height 1.2
 
 p:last-child
 	margin-bottom 0
 
 ::selection
 	background $secondary
-	
+
 ::-moz-selection
 	background $secondary
 
