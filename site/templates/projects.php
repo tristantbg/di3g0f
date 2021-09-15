@@ -36,7 +36,7 @@
 					if ($image->videostream()->isNotEmpty()) {
 						$video .= ' data-stream="'.$image->videostream().'"';
 					}
-					$video .= ' width="100%" height="100%" controls="false" muted loop>';
+					$video .= ' width="100%" height="100%" controls="false" muted loop playsinline>';
 					if ($image->videoexternal()->isNotEmpty()) {
 						$video .= '<source src=' . $image->videoexternal() . ' type="video/mp4">';
 					} else if ($image->videofile()->isNotEmpty()){
