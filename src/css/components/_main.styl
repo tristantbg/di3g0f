@@ -62,6 +62,14 @@ a, a:hover, a:visited, a:focus
 .lazy.lazyloaded, .lazy.flickity-lazyloaded, .plyr.plyr--ready
 	opacity 1
 
+.mobile
+	+above($md + 1)
+		display none !important
+
+.desktop
+	+below($md)
+		display none !important
+
 #main
 	span(1)
 

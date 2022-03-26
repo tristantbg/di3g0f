@@ -39,6 +39,13 @@ files:
       label: Video File
       type: select
       options: videos
+    videoexternalMobile:
+      label: Mobile Video external file link
+      type: url
+    videofileMobile:
+      label: Mobile Video File
+      type: select
+      options: videos
 fields:
   prevnext: prevnext
   title:
