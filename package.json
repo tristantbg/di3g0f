@@ -16,7 +16,7 @@
   "dependencies": {
     "flickity": "^2.0.8",
     "hls.js": "^0.8.7",
-    "lazysizes": "^4.0.1",
+    "lazysizes": "^5.2.1",
     "normalize.css": "^7.0.0",
     "plyr": "^2.0.18",
     "smoothstate": "^0.7.2",
