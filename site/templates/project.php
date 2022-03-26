@@ -15,14 +15,15 @@
 		data-id="<?= $key+1 ?>" 
 		<?php if($image->caption()->isNotEmpty()): ?>
 		data-caption="<?= $image->caption()->kt()->escape() ?>"
-		<?php elseif($page->text()->isNotEmpty()): ?>
-		data-caption="<?= $page->text()->kt()->escape() ?>"
+		<?php elseif($project->text()->isNotEmpty()): ?>
+		data-caption="<?= $project->text()->kt()->escape() ?>"
 		<?php endif ?>
 		data-media="<?= e($isVideo, 'video', 'image') ?>"
 		>
 		
 		<?php if($isVideo): ?>
-			<div class="content video <?= $image->contentSize() ?>">
+		<?php $hasVideoMobile = $image->videostreamMobile()->isNotEmpty() || $image->videoexternalMobile()->isNotEmpty() || $image->videofileMobile()->isNotEmpty(); ?>
+			<div class="content video <?= $image->contentSize() ?><?= r($hasVideoMobile, ' desktop') ?>">
 				<?php 
 				$poster = thumb($image, array('width' => 1500))->url();
 
@@ -32,7 +33,7 @@
 					if ($image->videostream()->isNotEmpty()) {
 						$video .= ' data-stream="'.$image->videostream().'"';
 					}
-					$video .= ' width="100%" height="100%" controls="false" muted loop playsinline>';
+					$video .= ' width="100%" height="100%" controls="false" muted loop playsinline autoplay>';
 					if ($image->videoexternal()->isNotEmpty()) {
 						$video .= '<source src=' . $image->videoexternal() . ' type="video/mp4">';
 					} else if ($image->videofile()->isNotEmpty()){
@@ -51,13 +52,45 @@
 				}
 				?>
 			</div>
+			<?php if ($hasVideoMobile): ?>
+				<div class="content video <?= $image->contentSize() ?> mobile">
+					<?php 
+					$poster = thumb($image, array('width' => 1500))->url();
+
+					if ($image->videostreamMobile()->isNotEmpty() || $image->videoexternalMobile()->isNotEmpty() || $image->videofileMobile()->isNotEmpty()) {
+						$video  = '<video class="media js-player mobile"';
+						$video .= ' poster="'.$poster.'"';
+						if ($image->videostreamMobile()->isNotEmpty()) {
+							$video .= ' data-stream="'.$image->videostreamMobile().'"';
+						}
+						$video .= ' width="100%" height="100%" controls="false" muted loop playsinline autoplay>';
+						if ($image->videoexternalMobile()->isNotEmpty()) {
+							$video .= '<source src=' . $image->videoexternalMobile() . ' type="video/mp4">';
+						} else if ($image->videofileMobile()->isNotEmpty()){
+							$video .= '<source src=' . $image->videofileMobile()->toFile()->url() . ' type="video/mp4">';
+						}
+						$video .= '</video>';
+						echo $video;
+					}
+					else {
+						$url = $image->videolinkMobile();
+						if ($image->vendor() == "youtube") {
+							echo '<div class="media js-player" data-type="youtube" data-video-id="' . $url  . '"></div>';
+						} else {
+							echo '<div class="media js-player" data-type="vimeo" data-video-id="' . $url  . '"></div>';
+						}
+					}
+				
+					?>
+				</div>
+			<?php endif ?>
 		<?php else: ?>
 			<div class="content image <?= $image->contentSize() ?>">
 				<img class="media lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
 				data-src="<?= $image->width(1500)->url() ?>" 
 				<?php 
 				$srcset = '';
-				for ($i = 1000; $i <= 3000; $i += 500) $srcset .= $image->width($i)->url() . ' ' . $i . 'w,';
+				for ($i = 1000; $i <= 2000; $i += 500) $srcset .= $image->width($i)->url() . ' ' . $i . 'w,';
 				?>
 				data-srcset="<?= $srcset ?>" 
 				data-sizes="auto" 
@@ -72,6 +105,8 @@
 		</div>
 	
 		<?php endif ?>
+
+		<?php endforeach ?>
 
 	<?php endforeach ?>
 
